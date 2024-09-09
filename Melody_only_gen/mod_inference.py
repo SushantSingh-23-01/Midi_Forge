@@ -4,13 +4,12 @@ from tqdm import tqdm
 import random
 
 class CustomInference:
-    def __init__(self, model, tokenizer, generation_length, bpm:int|float=120.0, genre:str|None=None, temperature:float=1.0, top_k:int=50, midifile_save_path:str|None=None, verbose:bool=False) -> None:
+    def __init__(self, model, tokenizer, gen_len:int, bpm:int|float=120.0, temperature:float=1.0, top_k:int=50, midifile_save_path:str|None=None, verbose:bool=False) -> None:
         self.model = model
         self.tokenizer = tokenizer
-        self.gen_len = generation_length
+        self.gen_len = gen_len
         self.temp = temperature
         self.bpm = bpm
-        self.genre = genre
         self.top_k = top_k
         self.seq_len = model.seq_len
         self.device =next(model.parameters()).device
