@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import torch
-# KEEP IN MIND : The given settings are for dataset comprising of drop melodies comprising of notes from ~40 to 70 notes.
+# KEEP IN MIND : The given settings are for dataset comprising of drop melodies only (comprising ~40 to 70 notes).
 # Also this are not perfect and should be modified as per need.
 @dataclass
 class ModelArgs: 
