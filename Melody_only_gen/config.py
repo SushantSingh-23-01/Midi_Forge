@@ -1,8 +1,11 @@
 from dataclasses import dataclass
-
+import torch
+# KEEP IN MIND : The given settings are for dataset comprising of drop melodies comprising of notes from ~40 to 70 notes.
+# Also this are not perfect and should be modified as per need.
 @dataclass
 class ModelArgs: 
-    seq_len:int = 96         # IMpPORTANT : Should be a multiple of 3. Genrally good ones for melodies -> 64, 96, 120
+    seq_len:int = 96         # IMPPORTANT : Should be a multiple of 3. Depends on the number of notes in midi. 
+                             # IMPORTANT : Seq len < least number of notes for a midi file in entire dataset * 3. Otherwise dataloader will throw error.
     d_model:int = 128        # embedding dimension of model, generally powers of 2 are preferred.
     num_q_heads:int = 4
     num_kv_heads:int = 4
@@ -16,6 +19,7 @@ class TrainArgs:
     lr:float = 1e-4         # Keep it in range ~1e-4 to 1e-5 for small datasets.
     epochs:int = 10         # As high as possible. Altough checkpointing/ training at interval can be benifiticial to detect extreme overfitting (slight overfitting isn't bad imo).
     warmup_steps:int = 5    # In case of using a warmup scheduler
+    sc_gamma:float = 0.9999 # In case of a scheduler with decay factor. anything < 1.
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # Preferred nvidia gpu / cuda.
     log_loss:bool=True      # Only meant for testing and comparing models
     model_save_path:str     # save directory of trained model.
