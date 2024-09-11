@@ -17,7 +17,7 @@ class ModelArgs:
 class TrainArgs:
     batch_size:int = 8      # Generally preferred to keep as high as possilbe, but during testing, higher batch size lead to poor loss curves. Usually powers of 2.
     lr:float = 1e-4         # Keep it in range ~1e-4 to 1e-5 for small datasets.
-    epochs:int = 10         # As high as possible. Altough checkpointing/ training at interval can be benifiticial to detect extreme overfitting (slight overfitting isn't bad imo).
+    epochs:int = 10         # As high as possible without overfitting (Different from complete midi case).
     warmup_steps:int = 5    # In case of using a warmup scheduler
     sc_gamma:float = 0.9999 # In case of a scheduler with decay factor. anything < 1.
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # Preferred nvidia gpu / cuda.
