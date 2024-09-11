@@ -7,6 +7,14 @@ from tqdm import tqdm
 class MidiLoader:
     """Loads Midi data to a pytorch dataloader"""
     def __init__(self, tokenizer, seq_len:int, batch_size:int, device:torch.device) -> None:
+        """
+        Gets pytorch dataloader for a split from data extracted from midifiles.
+        Args:
+            tokenizer (_type_): MidiTokenizer.
+            seq_len (int): seq_len at which model is to be trained. This is supposed to match the seq_len in Model definintion.
+            batch_size (int): Recommended in powers of 2.
+            device (torch.device): cpu or cuda.
+        """
         self.tokenizer = tokenizer
         self.file_paths = self.tokenizer.filenames
         self.seq_len = seq_len
@@ -69,6 +77,18 @@ class MidiLoader:
 class Trainer:
     """Base Trianer class."""
     def __init__(self, model, tokenizer, optimizer, scheduler, batch_size:int, epochs:int, model_save_path:str, model_load_path:str) -> None:
+        """
+        Trainer class for easier training.
+        Args:
+            model (_type_): pytorch model. (Should already be pushed to device).
+            tokenizer (_type_): Midi Tokenizer & derivatives.
+            optimizer (_type_): Any optimizer.
+            scheduler (_type_): Any scheduler. (In case of custom ones implement step(), get_last_lr() and state_dict())
+            batch_size (int): Powers of 2 recommended.
+            epochs (int): Number of times entire dataset has to be seen.
+            model_save_path (str): path where trained model will be saved.
+            model_load_path (str): path of loading a pre-trained model.
+        """
         self.model = model
         self.tokenizer = tokenizer
         self.optimizer = optimizer
@@ -129,6 +149,10 @@ class Trainer:
                     print('='*50)
                     print(f'\nEPochs: {epoch} | Train_loss : {train_loss.item():.6f} | validation_loss: {val_loss.item():.6f}| lr: {self.scheduler.get_last_lr()[0]:.2e}| GPU usage : {gpu_usage}\n')
                     print('='*50)
+                    
+        except KeyboardInterrupt:
+            self.save_checkpoint()         
+        self.save_checkpoint()    
                     
         except KeyboardInterrupt:
             self.save_checkpoint()         
