@@ -12,7 +12,3 @@ Midi Demo:
 
 https://github.com/user-attachments/assets/562fbc53-9ea9-4cde-aeb7-2f6684d927e6
 
-
-
-
-If you end up using this project, a reference to the repository would be appreciated.
