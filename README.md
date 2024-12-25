@@ -2,7 +2,14 @@
 
 ## Overview
 
-**Topic**: Midi-Forge is a project that uses a modern Large Language Model (LLM) architecture to generate MIDI files.
+**Topic**: Midi-Forge is a project that uses a modern Large Language Model (LLM) architecture to generate MIDI files
+
+## Project Setup
+Installation
+
+```bash
+pip install -r requirements.txt
+```
 
  ## Description
  
