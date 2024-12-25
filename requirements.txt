@@ -1,0 +1,4 @@
+pytorch-cuda 
+symusic 
+pretty_midi
+tqdm
